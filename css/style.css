@@ -91,6 +91,11 @@ body {
     color: #fff;
 }
 
+.action-button.move {
+    background-color: #ffc107;
+    color: #000;
+}
+
 .action-button.delete {
     background-color: #dc3545;
     color: #fff;
@@ -98,6 +103,10 @@ body {
 
 .action-button.edit:hover {
     background-color: #218838;
+}
+
+.action-button.move:hover {
+    background-color: #e0a800;
 }
 
 .action-button.delete:hover {

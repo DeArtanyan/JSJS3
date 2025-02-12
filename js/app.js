@@ -2,6 +2,7 @@ new Vue({
     el: '#app',
     data: {
         plannedTasks: [],
+        inProgressTasks: [],
         currentTask: {
             id: null,
             title: '',
@@ -13,6 +14,7 @@ new Vue({
         isEditing: false
     },
     methods: {
+
         saveTask() {
             if (!this.currentTask.title.trim()) {
                 alert('Заголовок задачи не может быть пустым!');
@@ -20,7 +22,9 @@ new Vue({
             }
 
             if (this.isEditing) {
-                const task = this.plannedTasks.find(t => t.id === this.currentTask.id);
+                
+                const task = this.plannedTasks.find(t => t.id === this.currentTask.id) ||
+                             this.inProgressTasks.find(t => t.id === this.currentTask.id);
                 if (task) {
                     task.title = this.currentTask.title;
                     task.description = this.currentTask.description;
@@ -28,6 +32,7 @@ new Vue({
                     task.lastEdited = new Date().toLocaleString();
                 }
             } else {
+
                 const newTask = {
                     id: Date.now(),
                     title: this.currentTask.title,
@@ -49,6 +54,12 @@ new Vue({
 
         deleteTask(taskId) {
             this.plannedTasks = this.plannedTasks.filter(task => task.id !== taskId);
+            this.inProgressTasks = this.inProgressTasks.filter(task => task.id !== taskId);
+        },
+
+        moveToInProgress(task) {
+            this.plannedTasks = this.plannedTasks.filter(t => t.id !== task.id);
+            this.inProgressTasks.push(task);
         },
 
         cancelEdit() {
