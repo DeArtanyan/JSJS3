@@ -15,10 +15,15 @@
                 <h2>Запланированные задачи</h2>
                 <div class="tasks">
                     <div v-for="task in plannedTasks" :key="task.id" class="task-card">
-                        <div class="task-date">Дата создания: {{ task.createdDate }}</div>
+                        <div class="task-date">Создано: {{ task.createdDate }}</div>
+                        <div class="task-date" v-if="task.lastEdited">Изменено: {{ task.lastEdited }}</div>
                         <div class="task-title">{{ task.title }}</div>
                         <div class="task-description">{{ task.description }}</div>
                         <div class="task-deadline">Дедлайн: {{ task.deadline }}</div>
+                        <div class="task-actions">
+                            <button @click="editTask(task)" class="action-button edit">Редактировать</button>
+                            <button @click="deleteTask(task.id)" class="action-button delete">Удалить</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,11 +41,14 @@
             </div>
         </div>
         <div class="task-form">
-            <h3>Создать новую задачу</h3>
-            <input v-model="newTask.title" type="text" placeholder="Заголовок задачи" class="form-input">
-            <textarea v-model="newTask.description" placeholder="Описание задачи" class="form-textarea"></textarea>
-            <input v-model="newTask.deadline" type="date" class="form-input">
-            <button @click="addTask" class="form-button">Создать задачу</button>
+            <h3>{{ isEditing ? 'Редактировать задачу' : 'Создать новую задачу' }}</h3>
+            <input v-model="currentTask.title" type="text" placeholder="Заголовок задачи" class="form-input">
+            <textarea v-model="currentTask.description" placeholder="Описание задачи" class="form-textarea"></textarea>
+            <input v-model="currentTask.deadline" type="date" class="form-input">
+            <button @click="saveTask" class="form-button">
+                {{ isEditing ? 'Сохранить изменения' : 'Создать задачу' }}
+            </button>
+            <button v-if="isEditing" @click="cancelEdit" class="form-button cancel">Отменить</button>
         </div>
     </div>
 </body>
