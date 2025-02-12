@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доска задач</title>
+    <script defer src="./js/vue.js"></script>
+    <script defer src="./js/app.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="board">
+            <div class="column">
+                <h2>Запланированные задачи</h2>
+                <div class="tasks">
+                    <div v-for="task in plannedTasks" :key="task.id" class="task-card">
+                        <div class="task-date">Дата создания: {{ task.createdDate }}</div>
+                        <div class="task-title">{{ task.title }}</div>
+                        <div class="task-description">{{ task.description }}</div>
+                        <div class="task-deadline">Дедлайн: {{ task.deadline }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Задачи в работе</h2>
+                <div class="tasks"></div>
+            </div>
+            <div class="column">
+                <h2>Тестирование</h2>
+                <div class="tasks"></div>
+            </div>
+            <div class="column">
+                <h2>Выполненные задачи</h2>
+                <div class="tasks"></div>
+            </div>
+        </div>
+        <div class="task-form">
+            <h3>Создать новую задачу</h3>
+            <input v-model="newTask.title" type="text" placeholder="Заголовок задачи" class="form-input">
+            <textarea v-model="newTask.description" placeholder="Описание задачи" class="form-textarea"></textarea>
+            <input v-model="newTask.deadline" type="date" class="form-input">
+            <button @click="addTask" class="form-button">Создать задачу</button>
+        </div>
+    </div>
+</body>
+</html>
