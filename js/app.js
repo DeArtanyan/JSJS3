@@ -4,6 +4,7 @@ new Vue({
         plannedTasks: [],
         inProgressTasks: [],
         testingTasks: [],
+        completedTasks: [],
         currentTask: {
             id: null,
             title: '',
@@ -12,7 +13,10 @@ new Vue({
             createdDate: '',
             lastEdited: ''
         },
-        isEditing: false
+        isEditing: false,
+        showReturnModal: false,
+        returnReason: '',
+        taskToReturn: null
     },
     methods: {
         saveTask() {
@@ -60,6 +64,32 @@ new Vue({
         moveToTesting(task) {
             this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
             this.testingTasks.push(task);
+        },
+        moveToCompleted(task) {
+            this.testingTasks = this.testingTasks.filter(t => t.id !== task.id);
+            this.completedTasks.push(task);
+        },
+        openReturnModal(task) {
+            this.taskToReturn = task;
+            this.showReturnModal = true;
+        },
+        closeReturnModal() {
+            this.showReturnModal = false;
+            this.returnReason = '';
+            this.taskToReturn = null;
+        },
+        returnTaskToInProgress() {
+            if (!this.returnReason.trim()) {
+                alert('Укажите причину возврата!');
+                return;
+            }
+
+            const task = this.taskToReturn;
+            task.returnReason = this.returnReason;
+            this.testingTasks = this.testingTasks.filter(t => t.id !== task.id);
+            this.inProgressTasks.push(task);
+
+            this.closeReturnModal();
         },
         cancelEdit() {
             this.resetForm();
