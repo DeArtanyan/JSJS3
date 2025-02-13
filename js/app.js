@@ -23,7 +23,8 @@ new Vue({
 
             if (this.isEditing) {
                 const task = this.plannedTasks.find(t => t.id === this.currentTask.id) ||
-                             this.inProgressTasks.find(t => t.id === this.currentTask.id);
+                             this.inProgressTasks.find(t => t.id === this.currentTask.id) ||
+                             this.testingTasks.find(t => t.id === this.currentTask.id);
                 if (task) {
                     task.title = this.currentTask.title;
                     task.description = this.currentTask.description;

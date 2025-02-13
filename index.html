@@ -40,7 +40,6 @@
                         <div class="task-actions">
                             <button @click="editTask(task)" class="action-button edit">Редактировать</button>
                             <button @click="moveToTesting(task)" class="action-button move">В тестирование</button>
-                            <button @click="deleteTask(task.id)" class="action-button delete">Удалить</button>
                         </div>
                     </div>
                 </div>
@@ -54,6 +53,9 @@
                         <div class="task-title">{{ task.title }}</div>
                         <div class="task-description">{{ task.description }}</div>
                         <div class="task-deadline">Дедлайн: {{ task.deadline }}</div>
+                        <div class="task-actions">
+                            <button @click="editTask(task)" class="action-button edit">Редактировать</button>
+                        </div>
                     </div>
                 </div>
             </div>
