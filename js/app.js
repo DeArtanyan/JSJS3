@@ -91,6 +91,11 @@ new Vue({
 
             this.closeReturnModal();
         },
+        isTaskOverdue(task) {
+            const deadline = new Date(task.deadline);
+            const now = new Date();
+            return deadline < now;
+        },
         cancelEdit() {
             this.resetForm();
         },

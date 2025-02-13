@@ -203,3 +203,16 @@ body {
     margin-top: 5px;
     font-style: italic;
 }
+.task-status {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.task-overdue {
+    border-left: 4px solid #dc3545;
+}
+
+.task-completed {
+    border-left: 4px solid #28a745;
+}
