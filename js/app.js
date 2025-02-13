@@ -3,6 +3,7 @@ new Vue({
     data: {
         plannedTasks: [],
         inProgressTasks: [],
+        testingTasks: [],
         currentTask: {
             id: null,
             title: '',
@@ -54,6 +55,10 @@ new Vue({
         moveToInProgress(task) {
             this.plannedTasks = this.plannedTasks.filter(t => t.id !== task.id);
             this.inProgressTasks.push(task);
+        },
+        moveToTesting(task) {
+            this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
+            this.testingTasks.push(task);
         },
         cancelEdit() {
             this.resetForm();
